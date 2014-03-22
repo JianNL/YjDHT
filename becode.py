@@ -37,7 +37,7 @@ class bencode():
         self.encodeop={
             "<type 'dict'>":self.encodeOpDic,
             "<type 'int'>":self.encodeOpDig,
-            "<type 'string'>":self.encodeOpStr,
+            "<type 'str'>":self.encodeOpStr,
             "<type 'list'>":self.encodeOpLst
         }
 
@@ -65,15 +65,22 @@ class bencode():
         '''
         对list进行编码
         '''
-        re=''
+        re='l'
         for i in lst:
             re=re+self.encodeop.get(str(type(i)))(i)
-        return re
+        return re+'e'
+
 
     def encodeOpDic(self,dic):
         '''
         对dic进行编码
         '''
+        re='d'
+        for key in dic:
+            re=re+self.encodeop.get(str(type(key)))(key)
+            re=re+self.encodeop.get(str(type(dic[key])))(dic[key])
+        return re+'e'
+
     def decode(self,code):
         '''
         bencode解码
@@ -151,3 +158,5 @@ if __name__=='__main__':
     print b.decode(code)
     print b.encodeOpDig(123)
     print b.encodeOpStr('helloworld')
+    print b.encodeOpLst([1,'fdfdfdf'])
+    print b.encodeOpDic({1:'fsdfasdf','abc':[1,'dfdfdf']})
