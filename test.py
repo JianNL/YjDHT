@@ -5,4 +5,16 @@
 #File Name:test.py
 ######################################################
 print 'test!'
-
+a='12334'
+print a[2:3]
+print a[1].isdigit()
+d={'1':2,"fff":45}
+print d.get('1')
+b=1
+d[a]=b
+print d
+print str(type(d))
+str='111'
+print len(str)
+re='11111'
+print re+'222222'
